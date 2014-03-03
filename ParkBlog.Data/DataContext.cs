@@ -42,9 +42,9 @@ namespace ParkBlog.Data
 
         #region IQueryableContext members
 
-        public DataContext Context
+        public DataContext EfContext
         {
-            get { return this; }
+            get { return (this); }
         }
 
         public DbSet<TEntity> EntitySet<TEntity>() where TEntity : BaseEntity

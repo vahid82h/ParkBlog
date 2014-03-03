@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using ParkBlog.Data;
+using ParkBlog.Data.Contracts;
 using ParkBlog.Domain;
 using ParkBlog.Service.Contracts;
 using System.Threading.Tasks;
@@ -11,21 +11,15 @@ namespace ParkBlog.Service.Implementation
     {
         private readonly UserManager<User, int> _userManager;
 
-        public UserService()
+        public UserService(IQueryableContext queryableContext)
         {
             _userManager =
                 new UserManager<User, int>(
                     new UserStore<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>(
-                        new DataContext()));
+                        queryableContext.EfContext));
         }
 
-        public async Task<User> GetUser(string userName, string password)
-        {
-            var user = await _userManager.FindAsync(userName, password);
-            return user;
-        }
-
-        public async Task<IdentityResult> CreateUser(string userName, string pasword, string email)
+        public async Task<IdentityResult> CreateUser(string userName, string password, string email)
         {
             var user = new User
             {
@@ -37,8 +31,14 @@ namespace ParkBlog.Service.Implementation
                 TwoFactorEnabled = false
             };
 
-            var result = await _userManager.CreateAsync(user, pasword);
+            var result = await _userManager.CreateAsync(user, password);
             return result;
+        }
+
+        public async Task<User> GetUser(string userName, string password)
+        {
+            var user = await _userManager.FindAsync(userName, password);
+            return user;
         }
     }
 }

@@ -10,7 +10,11 @@ namespace ParkBlog.Data.Contracts
     /// </summary>
     public interface IQueryableContext : IDisposable
     {
-        DataContext Context { get; }
+        /// <summary>
+        /// Gets the data context.
+        /// </summary>
+        /// <value>The DataContext.</value>
+        DataContext EfContext { get; }
 
         /// <summary>
         /// Returns a IDbSet instance for access to entities of the given type in the context,
