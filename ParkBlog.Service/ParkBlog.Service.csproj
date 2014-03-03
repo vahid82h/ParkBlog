@@ -66,6 +66,8 @@
     <Compile Include="Contracts\INewsPostService.cs" />
     <Compile Include="Contracts\IUserService.cs" />
     <Compile Include="Implementation\ArticlePostService.cs" />
+    <Compile Include="Implementation\EventPostService.cs" />
+    <Compile Include="Implementation\NewsPostService.cs" />
     <Compile Include="Implementation\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

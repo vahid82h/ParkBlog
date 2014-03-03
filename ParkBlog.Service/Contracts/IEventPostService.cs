@@ -1,5 +1,6 @@
 ﻿using ParkBlog.Domain;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace ParkBlog.Service.Contracts
@@ -38,7 +39,7 @@ namespace ParkBlog.Service.Contracts
         /// Gets the events.
         /// </summary>
         /// <param name="predicate">The predicate.</param>
-        /// <returns>EventPost.</returns>
-        EventPost GetEvents(Expression<Func<EventPost, bool>> predicate = null);
+        /// <returns>IEnumerable{EventPost}.</returns>
+        IEnumerable<EventPost> GetEvents(Expression<Func<EventPost, bool>> predicate = null);
     }
 }
