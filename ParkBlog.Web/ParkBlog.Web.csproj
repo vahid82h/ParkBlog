@@ -243,10 +243,6 @@
       <Project>{210898d2-7ff7-42c3-9984-dffd334d61d4}</Project>
       <Name>ParkBlog.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ParkBlog.Infrastructure\ParkBlog.Infrastructure.csproj">
-      <Project>{819c3e44-4748-445e-90d3-277df84e96e7}</Project>
-      <Name>ParkBlog.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ParkBlog.Service\ParkBlog.Service.csproj">
       <Project>{60d83ffe-235f-45d7-aa4d-df5736b4bf15}</Project>
       <Name>ParkBlog.Service</Name>
