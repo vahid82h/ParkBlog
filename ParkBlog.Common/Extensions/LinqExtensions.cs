@@ -6,10 +6,21 @@ using System.Linq;
 using System.Linq.Dynamic;
 using System.Linq.Expressions;
 
-namespace ParkBlog.Infrastructure.Extensions
+namespace ParkBlog.Common.Extensions
 {
+    /// <summary>
+    /// Class LinqExtensions.
+    /// </summary>
     public static class LinqExtensions
     {
+        /// <summary>
+        /// Sorts the by.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="sortOrder">The sort order.</param>
+        /// <param name="sortColumn">The sort column.</param>
+        /// <returns>IOrderedQueryable{``0}.</returns>
         public static IOrderedQueryable<T> SortBy<T>(this IQueryable<T> source, SortOrder sortOrder, string sortColumn)
         {
             //var param = Expression.Parameter(typeof(T), "p");
@@ -43,6 +54,16 @@ namespace ParkBlog.Infrastructure.Extensions
             return (IOrderedQueryable<T>)result;
         }
 
+        /// <summary>
+        /// Filters the data.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable">The queryable.</param>
+        /// <param name="take">The take.</param>
+        /// <param name="skip">The skip.</param>
+        /// <param name="sort">The sort.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>IQueryable{``0}.</returns>
         public static IQueryable<T> FilterData<T>(this IQueryable<T> queryable, int take, int skip, IEnumerable<Sort> sort,
             Filter filter)
         {
@@ -52,6 +73,13 @@ namespace ParkBlog.Infrastructure.Extensions
             return queryable;
         }
 
+        /// <summary>
+        /// Filters the data.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable">The queryable.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>IQueryable{``0}.</returns>
         public static IQueryable<T> FilterData<T>(this IQueryable<T> queryable, Filter filter)
         {
             queryable = Filter(queryable, filter);
@@ -60,6 +88,13 @@ namespace ParkBlog.Infrastructure.Extensions
 
         #region Private methods
 
+        /// <summary>
+        /// Filters the specified queryable.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable">The queryable.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>IQueryable{``0}.</returns>
         private static IQueryable<T> Filter<T>(IQueryable<T> queryable, Filter filter)
         {
             if (filter == null || filter.Logic == null)
@@ -73,19 +108,42 @@ namespace ParkBlog.Infrastructure.Extensions
             return queryable;
         }
 
+        /// <summary>
+        /// Sorts the specified queryable.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable">The queryable.</param>
+        /// <param name="sort">The sort.</param>
+        /// <returns>IQueryable{``0}.</returns>
         private static IQueryable<T> Sort<T>(IQueryable<T> queryable, IEnumerable<Sort> sort)
         {
             if (sort == null || !sort.Any())
                 return queryable;
-            string ordering = string.Join(",", sort.Select(s => s.ToExpression()));
+            var ordering = string.Join(",", sort.Select(s => s.ToExpression()));
             return queryable.OrderBy(ordering, new object[0]);
         }
 
+        /// <summary>
+        /// Pages the specified queryable.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable">The queryable.</param>
+        /// <param name="take">The take.</param>
+        /// <param name="skip">The skip.</param>
+        /// <returns>IQueryable{``0}.</returns>
         private static IQueryable<T> Page<T>(IQueryable<T> queryable, int take, int skip)
         {
             return Queryable.Take(Queryable.Skip(queryable, skip), take);
         }
 
+        /// <summary>
+        /// Applies the order.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="property">The property.</param>
+        /// <param name="methodName">Name of the method.</param>
+        /// <returns>IOrderedQueryable{``0}.</returns>
         private static IOrderedQueryable<T> ApplyOrder<T>(IQueryable<T> source, string property, string methodName)
         {
             var props = property.Split('.');
@@ -112,6 +170,11 @@ namespace ParkBlog.Infrastructure.Extensions
             return (IOrderedQueryable<T>)result;
         }
 
+        /// <summary>
+        /// Converts the string data to actual types.
+        /// </summary>
+        /// <param name="objArray">The object array.</param>
+        /// <returns>System.Object[][].</returns>
         private static object[] ConvertData(object[] objArray)
         {
             for (var i = 0; i < objArray.Length; i++)

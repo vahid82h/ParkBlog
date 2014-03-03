@@ -25,7 +25,7 @@ namespace ParkBlog.Service.Implementation
             return user;
         }
 
-        public async Task<IdentityResult> CreatUser(string userName, string pasword, string email)
+        public async Task<IdentityResult> CreateUser(string userName, string pasword, string email)
         {
             var user = new User
             {

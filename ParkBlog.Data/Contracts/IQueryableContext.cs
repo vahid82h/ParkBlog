@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ParkBlog.Domain;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 
@@ -18,9 +19,9 @@ namespace ParkBlog.Data.Contracts
         /// <typeparam>
         ///     <name>TValueObject</name>
         /// </typeparam>
-        /// <typeparam name="TEntity">Type of class</typeparam>
+        /// <typeparam name="TEntity">Type of base entity</typeparam>
         /// <returns></returns>
-        DbSet<TEntity> Set<TEntity>() where TEntity : class;
+        DbSet<TEntity> EntitySet<TEntity>() where TEntity : BaseEntity;
 
         /// <summary>
         /// Attach this item into "ObjectStateManager"
@@ -29,8 +30,8 @@ namespace ParkBlog.Data.Contracts
         ///     <name>TValueObject</name>
         /// </typeparam>
         /// <param name="item">The item </param>
-        /// <typeparam name="TEntity">Type of class</typeparam>
-        void Attach<TEntity>(TEntity item) where TEntity : class;
+        /// <typeparam name="TEntity">Type of base entity</typeparam>
+        void Attach<TEntity>(TEntity item) where TEntity : BaseEntity;
 
         /// <summary>
         /// Set object as modified
@@ -39,17 +40,16 @@ namespace ParkBlog.Data.Contracts
         ///     <name>TValueObject</name>
         /// </typeparam>
         /// <param name="item">The entity item to set as modified</param>
-        /// <typeparam name="TEntity">Type of class</typeparam>
-        /// <param name="id">The id of entity item to set as modified</param>
-        void SetModified<TEntity>(TEntity item, int id) where TEntity : class;
+        /// <typeparam name="TEntity">Type of base entity</typeparam>
+        void SetModified<TEntity>(TEntity item) where TEntity : BaseEntity;
 
         /// <summary>
         /// Apply current values in <paramref name="original"/>
         /// </summary>
         /// <param name="original">The original entity</param>
         /// <param name="current">The current entity</param>
-        /// <typeparam name="TEntity">Type of class</typeparam>
-        void ApplyCurrentValues<TEntity>(TEntity original, TEntity current) where TEntity : class;
+        /// <typeparam name="TEntity">Type of base entity</typeparam>
+        void ApplyCurrentValues<TEntity>(TEntity original, TEntity current) where TEntity : BaseEntity;
 
         /// <summary>
         /// Execute specific query with underliying persistence store

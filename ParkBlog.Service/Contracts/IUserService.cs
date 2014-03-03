@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using ParkBlog.Domain;
+using System.Threading.Tasks;
 
 namespace ParkBlog.Service.Contracts
 {
@@ -8,6 +8,6 @@ namespace ParkBlog.Service.Contracts
     {
         Task<User> GetUser(string userName, string password);
 
-        Task<IdentityResult> CreatUser(string userName, string password, string email);
+        Task<IdentityResult> CreateUser(string userName, string password, string email);
     }
 }

@@ -12,7 +12,7 @@ namespace ParkBlog.Data.Mapping
             Property(t => t.AddedDate).IsRequired();
             Property(t => t.Description).IsUnicode(true).IsRequired();
             Property(t => t.IsPublished).IsRequired();
-            Property(t => t.ModefiedDate).IsOptional();
+            Property(t => t.ModifiedDate).IsOptional();
             Property(t => t.RateValue).IsRequired();
             Property(t => t.Title).HasMaxLength(500).IsUnicode(true).IsRequired();
             Property(t => t.TotalRates).IsRequired();

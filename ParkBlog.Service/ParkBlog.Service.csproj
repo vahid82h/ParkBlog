@@ -38,6 +38,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.0-beta1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Kendo.DynamicLinq, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Taran 2\EvaluatingInstructor\UniversitySample\UniversitySample.Web\bin\Kendo.DynamicLinq.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.0-beta1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -57,11 +61,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\BaseService.cs" />
+    <Compile Include="Contracts\IArticlePostService.cs" />
+    <Compile Include="Contracts\IEventPostService.cs" />
+    <Compile Include="Contracts\INewsPostService.cs" />
     <Compile Include="Contracts\IUserService.cs" />
+    <Compile Include="Implementation\ArticlePostService.cs" />
     <Compile Include="Implementation\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ParkBlog.Common\ParkBlog.Common.csproj">
+      <Project>{819c3e44-4748-445e-90d3-277df84e96e7}</Project>
+      <Name>ParkBlog.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ParkBlog.Data\ParkBlog.Data.csproj">
       <Project>{4ceeb0ba-bb90-4fb4-8aa1-ee913a8f618a}</Project>
       <Name>ParkBlog.Data</Name>

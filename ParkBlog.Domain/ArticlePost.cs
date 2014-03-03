@@ -4,7 +4,7 @@ namespace ParkBlog.Domain
 {
     public class ArticlePost : BasePost
     {
-        public DateTime? ModefiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         public int RateValue { get; set; }
 

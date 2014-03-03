@@ -13,7 +13,8 @@ using System.Reflection;
 
 namespace ParkBlog.Data
 {
-    public class DataContext : IdentityDbContext<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>, IQueryableContext
+    public class DataContext : IdentityDbContext<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>,
+        IQueryableContext
     {
         //private readonly DataContext _context;
 
@@ -46,7 +47,12 @@ namespace ParkBlog.Data
             get { return this; }
         }
 
-        public void Attach<TEntity>(TEntity item) where TEntity : class
+        public DbSet<TEntity> EntitySet<TEntity>() where TEntity : BaseEntity
+        {
+            return Set<TEntity>();
+        }
+
+        public void Attach<TEntity>(TEntity item) where TEntity : BaseEntity
         {
             var entry = Entry(item);
 
@@ -55,15 +61,15 @@ namespace ParkBlog.Data
                 Entry(item).State = EntityState.Unchanged;
         }
 
-        public void SetModified<TEntity>(TEntity item, int id) where TEntity : class
+        public void SetModified<TEntity>(TEntity item) where TEntity : BaseEntity
         {
             //this operation also attach item in object state manager
-            var entityInDb = Set<TEntity>().Find(id);
+            var entityInDb = EntitySet<TEntity>().Find(item.Id);
             Entry(entityInDb).CurrentValues.SetValues(item);
             Entry(entityInDb).State = EntityState.Modified;
         }
 
-        public void ApplyCurrentValues<TEntity>(TEntity original, TEntity current) where TEntity : class
+        public void ApplyCurrentValues<TEntity>(TEntity original, TEntity current) where TEntity : BaseEntity
         {
             //if it is not attached, attach original and set current values
             Entry(original).CurrentValues.SetValues(current);
@@ -88,7 +94,7 @@ namespace ParkBlog.Data
         {
             bool saveFailed;
 
-            // If during save concurrency exception has occured, save changes with new values
+            // If during save concurrency exception has occurred, save changes with new values
             do
             {
                 try
